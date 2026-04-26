@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Admin Dashboard | SafeReport Telangana</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+        aside {
+            background: #0f172a;
+            color: white;
+            padding: 2rem;
+        }
+        main {
+            padding: 2rem;
+            background: #f1f5f9;
+        }
+        .admin-menu {
+            margin-top: 2rem;
+            display: grid;
+            gap: 0.5rem;
+        }
+        .admin-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+        .admin-item:hover, .admin-item.active {
+            background: rgba(255,255,255,0.05);
+            opacity: 1;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .analytics-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-layout">
+        <aside>
+            <div class="logo" style="color: white; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem;">
+                <i data-lucide="shield-check"></i>
+                Admin<span>Portal</span>
+            </div>
+            
+            <nav class="admin-menu">
+                <a href="#" class="admin-item active"><i data-lucide="layout-dashboard"></i> Overview</a>
+                <a href="#" class="admin-item"><i data-lucide="inbox"></i> Complaints Log <span style="background: var(--emergency-red); font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; margin-left: auto;">12 New</span></a>
+                <a href="#" class="admin-item"><i data-lucide="users"></i> Registered Citizens</a>
+                <a href="#" class="admin-item"><i data-lucide="radar"></i> Live Patrols</a>
+                <a href="#" class="admin-item"><i data-lucide="file-bar-chart"></i> Reports</a>
+                <a href="index.html" class="admin-item" style="margin-top: 10rem; color: #f43f5e;"><i data-lucide="log-out"></i> Admin Logout</a>
+            </nav>
+        </aside>
+
+        <main>
+            <header style="background: transparent; border: none; padding: 0; position: static; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 1.5rem; color: #1e293b;">Department Oversight</h2>
+                    <p style="color: var(--text-muted);">Gachibowli Division · Officer-in-Charge: SP Vikram</p>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn btn-primary"><i data-lucide="download"></i> Export Data</button>
+                    <div style="width: 45px; height: 45px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">SP</div>
+                </div>
+            </header>
+
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+                <div class="stat-card" style="border-left-color: var(--secondary-blue);">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Total FIRs</p>
+                    <h3 style="font-size: 1.75rem;">1,284</h3>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--emergency-red);">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Pending Action</p>
+                    <h3 style="font-size: 1.75rem;">42</h3>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--accent-gold);">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Under Investigation</p>
+                    <h3 style="font-size: 1.75rem;">89</h3>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--success-green);">
+                    <p style="color: var(--text-muted); font-size: 0.8rem;">Resolved This month</p>
+                    <h3 style="font-size: 1.75rem;">312</h3>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div class="analytics-card">
+                    <h3 style="margin-bottom: 1.5rem;">Crime Distribution</h3>
+                    <canvas id="crimeChart" height="250"></canvas>
+                </div>
+                <div class="analytics-card">
+                    <h3>Recent Activity</h3>
+                    <div style="margin-top: 1.5rem; display: grid; gap: 1.5rem;">
+                        <div style="display: flex; gap: 1rem; border-left: 2px solid var(--secondary-blue); padding-left: 1rem;">
+                            <div>
+                                <p style="font-weight: 600; font-size: 0.9rem;">New SOS Alert - Zone B</p>
+                                <p style="font-size: 0.8rem; color: #64748b;">Gachibowli Ring Road · 2 mins ago</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; border-left: 2px solid var(--success-green); padding-left: 1rem;">
+                            <div>
+                                <p style="font-weight: 600; font-size: 0.9rem;">Case Resolved: TS-827312</p>
+                                <p style="font-size: 0.8rem; color: #64748b;">Theft Recovery · 45 mins ago</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; border-left: 2px solid var(--accent-gold); padding-left: 1rem;">
+                            <div>
+                                <p style="font-weight: 600; font-size: 0.9rem;">Officer Assigned: TS-921827</p>
+                                <p style="font-size: 0.8rem; color: #64748b;">Officer Reddy · 1 hour ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Chart.js implementation
+        const ctx = document.getElementById('crimeChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Theft', 'Assault', 'Cybercrime', 'Fraud', 'Traffic', 'Others'],
+                datasets: [{
+                    label: 'Complaints',
+                    data: [450, 210, 680, 150, 420, 100],
+                    backgroundColor: [
+                        '#003366', '#0066CC', '#EF4444', '#EAB308', '#10B981', '#64748B'
+                    ],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

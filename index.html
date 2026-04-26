@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeReport – Smart Digital Police Complaint & Emergency Assistance (Telangana)</title>
+    <meta name="description" content="Official smart digital interface for Telangana citizens to report complaints and access emergency police assistance securely.">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-theme="light">
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i data-lucide="shield-check"></i>
+                Safe<span>Report</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#features">Features</a>
+                <a href="track.html">Track Complaint</a>
+                <a href="map.html">Police Map</a>
+                <a href="auth.html" class="btn btn-outline">Login</a>
+                <a href="sos.html" class="btn btn-sos">
+                    <i data-lucide="alert-circle"></i>
+                    SOS Emergency
+                </a>
+            </nav>
+            
+            <div class="mobile-menu-btn" style="display: none;">
+                <i data-lucide="menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="animate-up">Report Safely, <br>Get Help Quickly.</h1>
+            <p class="animate-up" style="animation-delay: 0.2s;">
+                Official Digital Platform for Citizens of Telangana. File complaints, track status, and access emergency services with a single click.
+            </p>
+            <div class="hero-btns animate-up" style="animation-delay: 0.4s; display: flex; gap: 1rem; justify-content: center;">
+                <a href="complaint.html" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem; background: white; color: var(--primary-blue);">
+                    <i data-lucide="file-plus-2"></i>
+                    File Online Complaint
+                </a>
+                <a href="auth.html" class="btn btn-outline" style="padding: 1rem 2rem; font-size: 1.1rem; border-color: white; color: white;">
+                    <i data-lucide="user-plus"></i>
+                    Register Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Strip -->
+    <div style="background: var(--text-dark); color: white; padding: 1rem 0;">
+        <div class="container" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="phone-call" style="color: var(--emergency-red);"></i>
+                <span>Emergency: <strong>100 / 112</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="shield" style="color: var(--accent-gold);"></i>
+                <span>Women Helpline: <strong>1091</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="lock" style="color: var(--success-green);"></i>
+                <span>Cybercrime: <strong>1930</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" style="padding: 5rem 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="font-size: 2.5rem; color: var(--primary-blue);">Smart Policing Features</h2>
+                <p style="color: var(--text-muted);">Empowering citizens with digital transparency and quick assistance.</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem;">
+                <!-- Feature 1 -->
+                <div class="card">
+                    <div style="width: 50px; height: 50px; background: rgba(0, 51, 102, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i data-lucide="file-text" style="color: var(--primary-blue);"></i>
+                    </div>
+                    <h3>Easy Complaint Filing</h3>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">File FIRs and complaints online with media evidence uploads from any device.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="card">
+                    <div style="width: 50px; height: 50px; background: rgba(239, 68, 68, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i data-lucide="map-pin" style="color: var(--emergency-red);"></i>
+                    </div>
+                    <h3>Emergency SOS</h3>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">Instant location sharing with the nearest police patrol team during emergencies.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="card">
+                    <div style="width: 50px; height: 50px; background: rgba(234, 179, 8, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i data-lucide="activity" style="color: var(--accent-gold);"></i>
+                    </div>
+                    <h3>Real-time Tracking</h3>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">Monitor the live status of your case with historical timeline and officer updates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" style="padding: 5rem 0; background: var(--bg-white);">
+        <div class="container" style="display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+                <h2 style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1.5rem;">About SafeReport</h2>
+                <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
+                    SafeReport is a state-of-the-art digital bridge between the Telangana Police and the citizens. Our mission is to modernize public safety by providing a transparent, efficient, and accessible reporting mechanism.
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="check-circle" style="color: var(--success-green);"></i>
+                        <span style="font-weight: 500;">Secure & Encrypted</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="check-circle" style="color: var(--success-green);"></i>
+                        <span style="font-weight: 500;">24/7 Monitoring</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="check-circle" style="color: var(--success-green);"></i>
+                        <span style="font-weight: 500;">Anonymous Filing</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="check-circle" style="color: var(--success-green);"></i>
+                        <span style="font-weight: 500;">Direct Officer Access</span>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <div id="hero-image-placeholder" style="width: 100%; height: 400px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1579353977828-db72f500f66a?auto=format&fit=crop&q=80&w=1000') center/cover; border-radius: var(--radius-lg); overflow: hidden;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--primary-blue); color: white; padding: 4rem 0 2rem 0;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                <div>
+                    <a href="#" class="logo" style="color: white; margin-bottom: 1.5rem;">
+                        <i data-lucide="shield-check"></i>
+                        Safe<span>Report</span>
+                    </a>
+                    <p style="opacity: 0.7;">Official Digital Police Portal - Govt of Telangana.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Quick Links</h4>
+                    <ul style="list-style: none; display: grid; gap: 0.75rem;">
+                        <li><a href="#" style="opacity: 0.7;">Home</a></li>
+                        <li><a href="#about" style="opacity: 0.7;">About Us</a></li>
+                        <li><a href="complaint.html" style="opacity: 0.7;">Online Complaint</a></li>
+                        <li><a href="track.html" style="opacity: 0.7;">Track Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Legal</h4>
+                    <ul style="list-style: none; display: grid; gap: 0.75rem;">
+                        <li><a href="#" style="opacity: 0.7;">Privacy Policy</a></li>
+                        <li><a href="#" style="opacity: 0.7;">Terms of Service</a></li>
+                        <li><a href="#" style="opacity: 0.7;">IT Act Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Contact Support</h4>
+                    <p style="opacity: 0.7;">Helpline: 100 / 112</p>
+                    <p style="opacity: 0.7;">Email: support@telanganapolice.gov.in</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; opacity: 0.5; font-size: 0.9rem;">
+                &copy; 2026 SafeReport Telangana. All Rights Reserved. Designed for Public Safety.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+    <script type="module" src="js/global-auth.js"></script>
+</body>
+</html>

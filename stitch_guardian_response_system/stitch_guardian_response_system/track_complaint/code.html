@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Complaint Tracking - Shield Command</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#c1c3ed",
+                        "surface-container-high": "#eae7ef",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1b1b21",
+                        "primary-fixed": "#e0e0ff",
+                        "tertiary-container": "#670008",
+                        "tertiary": "#400003",
+                        "surface-container-low": "#f5f2fb",
+                        "surface-tint": "#4c56af",
+                        "surface": "#fbf8ff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "tertiary-fixed-dim": "#ffb3ac",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#ff635b",
+                        "inverse-primary": "#bdc2ff",
+                        "on-secondary-fixed": "#151839",
+                        "secondary-fixed": "#e0e0ff",
+                        "inverse-surface": "#303036",
+                        "outline-variant": "#c6c5d4",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "surface-container-highest": "#e4e1ea",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dbd9e1",
+                        "surface-bright": "#fbf8ff",
+                        "on-secondary-fixed-variant": "#414467",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d2d4ff",
+                        "on-surface-variant": "#454652",
+                        "outline": "#767683",
+                        "primary": "#000666",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#efecf5",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fbf8ff",
+                        "surface-variant": "#e4e1ea",
+                        "primary-container": "#1a237e",
+                        "on-primary-container": "#8690ee",
+                        "on-primary-fixed": "#000767",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f2eff8",
+                        "on-tertiary-fixed-variant": "#930010",
+                        "on-secondary-container": "#575b7f",
+                        "on-tertiary-fixed": "#410003",
+                        "on-background": "#1b1b21",
+                        "secondary": "#585c80",
+                        "tertiary-fixed": "#ffdad6"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Tight tracking for high-end editorial feel */
+        .tracking-editorial { letter-spacing: -0.02em; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen relative antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar (from Shared Components JSON) -->
+<header class="bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl docked full-width top-0 bg-slate-100 dark:bg-slate-900 shadow-[0_8px_32px_0_rgba(52,61,150,0.12)] flex justify-between items-center w-full px-6 py-4 transition-all duration-300 ease-in-out fixed z-50">
+<div class="flex items-center gap-3">
+<img alt="Officer profile photo" class="w-10 h-10 rounded-full object-cover" data-alt="Professional headshot of a police officer in uniform against a neutral background with studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbxHo6vyTw3_RT--98FPEOcR8WQLFfrrn--n_cA86Q1QEEg5YGH0MJGxooj6mGxIdA6X5CkypfxUZSxJRsWP7spUARNOBz8kL7T1vhToFJfL4jt0dIqyWCR1FQ0bIt6qLKBY1zZWoocNBjF6YI-8vZlIkJlHRN2bkg8VbpntzziS0MW57oZpbKL02OGxDv05tyE1d9hhcaV4-TRRPX1nnguPoStOIG66D3rJtynSnC0jJw7n2urv0hgruRfqU7_RsMdfLDp8iCcoE"/>
+<span class="text-xl font-black tracking-tighter text-blue-900 dark:text-blue-50">Command Center</span>
+</div>
+<button class="text-blue-900 dark:text-blue-100 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all duration-300 ease-in-out p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="pt-28 pb-36 px-6 max-w-3xl mx-auto space-y-8 relative z-10">
+<!-- Hero Header -->
+<div class="flex flex-col gap-1">
+<h1 class="text-4xl md:text-5xl font-headline font-black tracking-editorial text-on-surface">Unit Dispatched</h1>
+<p class="text-lg font-body text-on-surface-variant flex items-center gap-2">
+                Incident <span class="font-bold text-primary">#A-9482</span>
+<span class="w-1.5 h-1.5 rounded-full bg-surface-container-high"></span>
+                High Priority
+            </p>
+</div>
+<!-- Custom Glassmorphic Stepper -->
+<div class="bg-surface-container-lowest rounded-[1.5rem] p-6 shadow-[0_8px_32px_rgba(52,61,150,0.04)]">
+<div class="relative flex justify-between items-center w-full pt-2 pb-6">
+<!-- Background Line -->
+<div class="absolute left-[10%] right-[10%] top-6 h-1.5 bg-surface-container-high rounded-full -z-10"></div>
+<!-- Active Progress Line -->
+<div class="absolute left-[10%] right-[35%] top-6 h-1.5 bg-gradient-to-r from-primary to-primary-container rounded-full -z-10"></div>
+<!-- Step 1: Pending -->
+<div class="flex flex-col items-center gap-3 w-1/4">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_4px_16px_rgba(0,6,102,0.2)]">
+<span class="material-symbols-outlined text-sm font-bold" data-weight="fill">check</span>
+</div>
+<span class="text-xs font-label font-bold text-on-surface uppercase tracking-wider">Pending</span>
+</div>
+<!-- Step 2: Assigned -->
+<div class="flex flex-col items-center gap-3 w-1/4">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_4px_16px_rgba(0,6,102,0.2)]">
+<span class="material-symbols-outlined text-sm font-bold" data-weight="fill">check</span>
+</div>
+<span class="text-xs font-label font-bold text-on-surface uppercase tracking-wider">Assigned</span>
+</div>
+<!-- Step 3: On the Way (Active/Pulsing) -->
+<div class="flex flex-col items-center gap-3 w-1/4 relative">
+<div class="absolute top-0 w-10 h-10 bg-primary-fixed-dim rounded-full scale-[1.6] opacity-40 animate-pulse"></div>
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest border-4 border-primary flex items-center justify-center relative z-10 shadow-[0_4px_24px_rgba(26,35,126,0.25)]">
+<div class="w-2.5 h-2.5 bg-primary rounded-full"></div>
+</div>
+<span class="text-xs font-label font-bold text-primary uppercase tracking-wider">On Way</span>
+</div>
+<!-- Step 4: Resolved -->
+<div class="flex flex-col items-center gap-3 w-1/4 opacity-50">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border-2 border-surface-dim">
+<div class="w-2 h-2 bg-outline rounded-full"></div>
+</div>
+<span class="text-xs font-label font-medium text-outline uppercase tracking-wider">Resolved</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Map View Module -->
+<div class="bg-surface-container-lowest rounded-[1.5rem] overflow-hidden relative h-72 md:h-auto md:row-span-2 shadow-[0_8px_32px_rgba(52,61,150,0.04)] isolate">
+<!-- Decorative Map Base -->
+<div class="absolute inset-0 bg-surface-container-high opacity-50 mix-blend-multiply"></div>
+<img alt="Live tracking map" class="w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale" data-alt="Minimalist monochromatic city street map view with soft lighting and subtle geographic outlines" data-location="Downtown District" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhpJcuaC9qPDl-jtmBc8ZfpXD4NxfC_cAT7Bd0zJM9zzcwAIZvVtFrIe-5BaUeOfas9WT06engJGZsFD8KP4HSwg7KAOX6dsNkqwrTxfKeilFG1GKJ-qQeSzSDxoUgsKDGqfhNVZ2m5_sjAlhm1xqOMGGet5X36MlnnGTlddG6oUNzc2wIk_0dm6DVii57tuou90SOoNlAdb5fDEaqMHfz3YZKrJDvWSA4CwEDoqyjF1SWAIdqk5wivGPUl6QgjNi2FMofaS_6YG0"/>
+<!-- ETA Floating Badge -->
+<div class="absolute top-4 left-4 bg-surface-container-lowest/90 backdrop-blur-md px-4 py-3 rounded-xl flex items-center gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+<div class="w-10 h-10 bg-primary-fixed rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed">timer</span>
+</div>
+<div>
+<p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant">Arrival In</p>
+<p class="text-xl font-headline font-black text-primary leading-tight">4 min</p>
+</div>
+</div>
+<!-- Officer Location Pin (Tonal Depth) -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+<div class="relative flex items-center justify-center">
+<div class="absolute inset-0 bg-primary-fixed-dim rounded-full scale-[2] opacity-30"></div>
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-[0_8px_24px_rgba(0,6,102,0.4)] relative z-10">
+<span class="material-symbols-outlined text-on-primary" data-weight="fill">local_police</span>
+</div>
+</div>
+<!-- Route indicator line fake -->
+<div class="w-1 h-12 bg-gradient-to-b from-primary to-transparent mt-1 opacity-50"></div>
+</div>
+</div>
+<!-- Assigned Officer Details -->
+<div class="bg-surface-container-lowest rounded-[1.5rem] p-6 flex flex-col justify-between shadow-[0_8px_32px_rgba(52,61,150,0.04)]">
+<div>
+<p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-4">Responding Unit</p>
+<div class="flex items-center gap-5 mb-6">
+<div class="relative">
+<img alt="Assigned Officer" class="w-16 h-16 rounded-full object-cover" data-alt="Close up portrait of a confident male police officer wearing a dark uniform outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwbtO8XRK5pIdj5xoqdGvJ35QprE6WY85DbkIXPxLK7_SMjLyjFy0pJevkne1xo7XJ4CQ6l4ssaWCvmRGJ7HdD4PkZVbj7mzYMEMCrj2yGpimJMs3DZU3CBhklclTO4YcJqKkaOQuUi135LTRW3Ir08pwf0Mmtkco2sxcCCxVUicL2PM9CiUqWVhtmvem0QSPXa7nv_YxVHpWOO1NSdTjrb7OUHwZRMLOZhDrjXAJcT_jpHnNdbzFBJ2oMeoyKIdc1Gr1ndQfISew"/>
+<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-surface-container-lowest rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-sm" data-weight="fill">verified</span>
+</div>
+</div>
+<div>
+<h2 class="text-xl font-headline font-bold text-on-surface tracking-tight">Off. Marcus Chen</h2>
+<p class="text-sm font-label text-on-surface-variant mt-0.5">Badge #894-B</p>
+</div>
+</div>
+</div>
+<!-- Action Buttons (Gradient & Tonal) -->
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 bg-surface-container text-primary font-label font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-weight="fill">call</span>
+                        Call
+                    </button>
+<button class="flex-1 bg-gradient-to-br from-primary to-primary-container text-on-primary font-label font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(26,35,126,0.25)] hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-weight="fill">chat</span>
+                        Message
+                    </button>
+</div>
+</div>
+<!-- Context Snippet -->
+<div class="bg-surface-container-low rounded-[1.5rem] p-5 flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-lg">gpp_maybe</span>
+</div>
+<div>
+<h3 class="text-sm font-headline font-bold text-on-surface mb-1">Noise Disturbance</h3>
+<p class="text-sm font-body text-on-surface-variant leading-relaxed">Reported active disturbance at 742 Evergreen Terrace, Apt 4B. Caller requested discrete approach.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (from Shared Components JSON with semantic active state logic) -->
+<!-- The "Track" tab is logically active based on the page intent -->
+<nav class="bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl fixed bottom-0 w-full rounded-t-3xl border-t border-slate-100 dark:border-slate-800 shadow-[0_-8px_32px_0_rgba(52,61,150,0.08)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3">
+<!-- Shield (Inactive) -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 opacity-70 hover:opacity-100 hover:text-blue-800 dark:hover:text-blue-200 active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-widest mt-1">Shield</span>
+</a>
+<!-- Report (Inactive) -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 opacity-70 hover:opacity-100 hover:text-blue-800 dark:hover:text-blue-200 active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="edit_square">edit_square</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-widest mt-1">Report</span>
+</a>
+<!-- Track (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-blue-900 text-white rounded-2xl px-5 py-2 scale-105 shadow-lg active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="radar">radar</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-widest mt-1">Track</span>
+</a>
+<!-- Alerts (Inactive) -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 opacity-70 hover:opacity-100 hover:text-blue-800 dark:hover:text-blue-200 active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="font-inter text-[10px] font-bold uppercase tracking-widest mt-1">Alerts</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Online Complaint | SafeReport Telangana</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.85rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            outline: none;
+            transition: all 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+        }
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .upload-zone:hover {
+            border-color: var(--secondary-blue);
+            background: rgba(0, 102, 204, 0.05);
+        }
+        .full-width { grid-column: span 2; }
+        
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i data-lucide="shield-check"></i>
+                Safe<span>Report</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="track.html">Track Complaint</a>
+                <a href="dashboard.html" class="btn btn-outline">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: var(--primary-blue); font-size: 1.75rem;">Digital Incident Reporting</h2>
+                <p style="color: var(--text-muted);">Please provide accurate details for official verification.</p>
+            </div>
+
+            <form id="complaint-form">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="title">Complaint Title / Short Description</label>
+                        <input type="text" id="title" placeholder="e.g., Mobile Phone Theft at Metro Station" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Theft">Theft / Robbery</option>
+                            <option value="Harassment">Women Harassment</option>
+                            <option value="Cybercrime">Cybercrime / Fraud</option>
+                            <option value="Accident">Road Accident</option>
+                            <option value="Missing">Missing Person</option>
+                            <option value="Assault">Physical Assault</option>
+                            <option value="Other">Other Emergency</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Incident Location</label>
+                        <input type="text" id="location" placeholder="City, Area, Landmark" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="description">Detailed Description</label>
+                        <textarea id="description" rows="5" placeholder="Describe the incident in detail (date, time, individuals involved)..." required></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Image / Video Evidence</label>
+                        <div class="upload-zone" id="upload-trigger">
+                            <i data-lucide="upload-cloud" style="width: 48px; height: 48px; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                            <p>Click or drag files here to upload evidence</p>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Max size: 50MB (JPG, PNG, MP4)</span>
+                            <input type="file" id="evidence-upload" hidden multiple accept="image/*,video/*">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width" style="display: flex; align-items: center; gap: 0.75rem;">
+                        <input type="checkbox" id="anonymous" style="width: auto;">
+                        <label for="anonymous" style="margin-bottom: 0; font-weight: 500;">File as Anonymous Complaint (Identity Hidden)</label>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 2; padding: 1.25rem;">
+                        <i data-lucide="send"></i>
+                        Submit Official Complaint
+                    </button>
+                    <button type="reset" class="btn btn-outline" style="flex: 1;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/complaint.js"></script>
+    <script>
+        lucide.createIcons();
+        
+        const uploadTrigger = document.getElementById('upload-trigger');
+        const fileInput = document.getElementById('evidence-upload');
+
+        if (uploadTrigger && fileInput) {
+            uploadTrigger.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', (e) => {
+                if(fileInput.files.length > 0) {
+                    uploadTrigger.innerHTML = `<i data-lucide="check-circle" style="color: var(--success-green);"></i> <p>${fileInput.files.length} files selected</p>`;
+                    lucide.createIcons();
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

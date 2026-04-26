@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Dashboard | SafeReport Telangana</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        aside {
+            background: var(--primary-blue);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .aside-menu {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+        .menu-item:hover, .menu-item.active {
+            background: rgba(255,255,255,0.1);
+            opacity: 1;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 3rem;
+            overflow-y: auto;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--secondary-blue);
+            box-shadow: var(--shadow-sm);
+        }
+        .complaint-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .complaint-table th, .complaint-table td {
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .complaint-table th {
+            background: var(--bg-light);
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-resolved { background: #dcfce7; color: #166534; }
+        
+        @media (max-width: 900px) {
+            .dashboard-layout { grid-template-columns: 1fr; }
+            aside { display: none; }
+        }
+    </style>
+</head>
+<body style="background: var(--bg-light);">
+
+    <div class="dashboard-layout">
+        <aside>
+            <a href="index.html" class="logo" style="color: white;">
+                <i data-lucide="shield-check"></i>
+                Safe<span>Report</span>
+            </a>
+            
+            <nav class="aside-menu">
+                <a href="#" class="menu-item active">
+                    <i data-lucide="home"></i> Dashboard
+                </a>
+                <a href="complaint.html" class="menu-item">
+                    <i data-lucide="file-plus"></i> New Complaint
+                </a>
+                <a href="track.html" class="menu-item">
+                    <i data-lucide="activity"></i> Track History
+                </a>
+                <a href="map.html" class="menu-item">
+                    <i data-lucide="map"></i> Police Map
+                </a>
+                <a href="#" class="menu-item" style="margin-top: auto;">
+                    <i data-lucide="settings"></i> Settings
+                </a>
+                <a href="#" id="logout-btn" class="menu-item" style="color: #fda4af;">
+                    <i data-lucide="log-out"></i> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <main>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h2 style="font-size: 1.75rem;">Welcome back, Ramesh</h2>
+                    <p style="color: var(--text-muted);">Adhaar Verified Account · TS Citizen ID: 827364</p>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <button class="btn btn-outline" style="border: none; position: relative;">
+                        <i data-lucide="bell"></i>
+                        <span style="position: absolute; top: 5px; right: 5px; width: 8px; height: 8px; background: var(--emergency-red); border-radius: 50%;"></span>
+                    </button>
+                    <div style="width: 40px; height: 40px; background: var(--secondary-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">R</div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Total Complaints</p>
+                    <h3 style="font-size: 1.5rem;">04</h3>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--accent-gold);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Under Review</p>
+                    <h3 style="font-size: 1.5rem;">01</h3>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--success-green);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Resolved</p>
+                    <h3 style="font-size: 1.5rem;">03</h3>
+                </div>
+            </div>
+
+            <div class="card" style="padding: 0; border: none; overflow: hidden;">
+                <div style="padding: 1.5rem; background: var(--bg-white); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="font-size: 1.25rem;">Recent Complaints</h3>
+                    <a href="#" style="color: var(--secondary-blue); font-size: 0.9rem; font-weight: 600;">View All</a>
+                </div>
+                <table class="complaint-table">
+                    <thead>
+                        <tr>
+                            <th>Complaint ID</th>
+                            <th>Incident Title</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TS827364591</td>
+                            <td>Wallet Theft at Gachibowli</td>
+                            <td>Apr 24, 2026</td>
+                            <td><span class="status-badge badge-pending">Under Review</span></td>
+                            <td><a href="track.html?id=TS827364591" style="color: var(--secondary-blue); font-weight: 600;">Track</a></td>
+                        </tr>
+                        <tr>
+                            <td>TS716253490</td>
+                            <td>Cyber Fraud - Bank Call</td>
+                            <td>Mar 15, 2026</td>
+                            <td><span class="status-badge badge-resolved">Resolved</span></td>
+                            <td><a href="#" style="color: var(--secondary-blue); font-weight: 600;">Track</a></td>
+                        </tr>
+                        <tr>
+                            <td>TS665544332</td>
+                            <td>Illegal Parking Block</td>
+                            <td>Feb 02, 2026</td>
+                            <td><span class="status-badge badge-resolved">Resolved</span></td>
+                            <td><a href="#" style="color: var(--secondary-blue); font-weight: 600;">Track</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="card">
+                    <h4>Safety Tips for You</h4>
+                    <ul style="margin-top: 1rem; list-style: none; display: grid; gap: 1rem;">
+                        <li style="display: flex; gap: 1rem;">
+                            <i data-lucide="shield-check" style="color: var(--success-green); width: 20px;"></i>
+                            <p style="font-size: 0.9rem;">Enable 2FA on your banking apps to prevent cyber fraud.</p>
+                        </li>
+                        <li style="display: flex; gap: 1rem;">
+                            <i data-lucide="shield-check" style="color: var(--success-green); width: 20px;"></i>
+                            <p style="font-size: 0.9rem;">Report suspicious activities immediately via SOS button.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Notifications</h4>
+                    <div style="margin-top: 1rem; display: grid; gap: 1.5rem;">
+                        <div style="display: flex; gap: 1rem;">
+                            <div style="width: 8px; height: 8px; background: var(--secondary-blue); border-radius: 50%; margin-top: 5px;"></div>
+                            <div>
+                                <p style="font-weight: 500; font-size: 0.95rem;">Officer Assigned to Case TS827364591</p>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">2 hours ago · Gachibowli Station</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { auth, db } from './js/firebase-config.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        lucide.createIcons();
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                document.querySelector('h2').innerText = `Welcome back, ${user.displayName || 'Citizen'}`;
+                document.querySelector('p').innerText = `Email: ${user.email} · TS Citizen ID: Verified`;
+
+                // Fetch User Complaints
+                const q = query(collection(db, "complaints"), where("uid", "==", user.uid));
+                const querySnapshot = await getDocs(q);
+                const tableBody = document.querySelector('tbody');
+                tableBody.innerHTML = ''; // Clear demo data
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = `
+                        <tr>
+                            <td>${data.complaintId}</td>
+                            <td>${data.title}</td>
+                            <td>${data.createdAt ? data.createdAt.toDate().toLocaleDateString() : 'Recent'}</td>
+                            <td><span class="status-badge badge-pending">${data.status || 'Submitted'}</span></td>
+                            <td><a href="track.html?id=${data.complaintId}" style="color: var(--secondary-blue); font-weight: 600;">Track</a></td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            } else {
+                window.location.href = 'auth.html'; // Force login
+            }
+        });
+    </script>
+    <script type="module" src="js/global-auth.js"></script>
+</body>
+</html>

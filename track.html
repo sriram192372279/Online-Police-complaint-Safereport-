@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Complaint | SafeReport Telangana</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .search-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            text-align: center;
+        }
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 1rem;
+            outline: none;
+            font-size: 1.1rem;
+        }
+        
+        /* Timeline Styles */
+        .timeline {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: none; /* Shown on search */
+        }
+        .timeline-step {
+            display: flex;
+            gap: 2rem;
+            position: relative;
+            padding-bottom: 3rem;
+        }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 30px;
+            width: 2px;
+            height: calc(100% - 30px);
+            background: var(--border-color);
+        }
+        .timeline-step.active::before { background: var(--secondary-blue); }
+        .timeline-step:last-child::before { display: none; }
+        
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        .timeline-step.completed .step-icon {
+            background: var(--success-green);
+            border-color: var(--success-green);
+            color: white;
+        }
+        .timeline-step.active .step-icon {
+            background: var(--secondary-blue);
+            border-color: var(--secondary-blue);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.2);
+        }
+        .step-content h4 { color: var(--primary-blue); }
+        .step-content p { color: var(--text-muted); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i data-lucide="shield-check"></i>
+                Safe<span>Report</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="complaint.html">New Complaint</a>
+                <a href="auth.html" class="btn btn-outline">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <h1 style="color: var(--primary-blue);">Track Your Complaint</h1>
+            <p style="color: var(--text-muted);">Enter your 11-digit Complaint ID to check the progress.</p>
+            
+            <div class="search-box">
+                <input type="text" id="track-id" placeholder="TS827364591...">
+                <button class="btn btn-primary" id="search-btn">
+                    <i data-lucide="search"></i>
+                    Track Status
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline" id="tracking-result">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+                <div>
+                    <h3 id="result-id">ID: TS827364591</h3>
+                    <p style="color: var(--text-muted);">Category: <span id="result-category">Cybercrime</span></p>
+                </div>
+                <div style="background: rgba(0, 102, 204, 0.1); color: var(--secondary-blue); padding: 0.5rem 1rem; border-radius: var(--radius-full); font-weight: 600;">
+                    Currently: Under Review
+                </div>
+            </div>
+
+            <!-- Steps -->
+            <div class="timeline-step completed">
+                <div class="step-icon"><i data-lucide="check" style="width: 16px;"></i></div>
+                <div class="step-content">
+                    <h4>Submitted</h4>
+                    <p>April 25, 2026 - 10:30 AM</p>
+                    <p style="margin-top: 0.5rem;">Complaint successfully received by central server and ID generated.</p>
+                </div>
+            </div>
+
+            <div class="timeline-step active">
+                <div class="step-icon"><i data-lucide="search" style="width: 16px;"></i></div>
+                <div class="step-content">
+                    <h4>Under Review</h4>
+                    <p>April 26, 2026 - 09:15 AM</p>
+                    <p style="margin-top: 0.5rem;">The verification team is reviewing the evidence and description provided.</p>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-icon">3</div>
+                <div class="step-content">
+                    <h4>Officer Assigned</h4>
+                    <p>Pending...</p>
+                    <p style="margin-top: 0.5rem;">An investigating officer from the nearest station will be assigned.</p>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="step-icon">4</div>
+                <div class="step-content">
+                    <h4>Resolved</h4>
+                    <p>Pending...</p>
+                    <p style="margin-top: 0.5rem;">Final report filed and case closed.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { db } from './js/firebase-config.js';
+        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        
+        lucide.createIcons();
+        
+        const searchBtn = document.getElementById('search-btn');
+        const timeline = document.getElementById('tracking-result');
+        const trackIdInp = document.getElementById('track-id');
+        const resId = document.getElementById('result-id');
+        const resCat = document.getElementById('result-category');
+
+        async function performTrack(id) {
+            if(!id) return;
+            
+            const q = query(collection(db, "complaints"), where("complaintId", "==", id));
+            const querySnapshot = await getDocs(q);
+            
+            if (!querySnapshot.empty) {
+                const data = querySnapshot.docs[0].data();
+                timeline.style.display = 'block';
+                resId.innerText = 'ID: ' + id;
+                resCat.innerText = data.category || 'General';
+                timeline.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert('No complaint found with this ID.');
+            }
+        }
+
+        // Handle URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.has('id')) {
+            const id = urlParams.get('id');
+            trackIdInp.value = id;
+            performTrack(id);
+        }
+
+        searchBtn.addEventListener('click', () => performTrack(trackIdInp.value));
+    </script>
+
+    <script type='module' src='js/global-auth.js'></script>
+</body>
+</html>

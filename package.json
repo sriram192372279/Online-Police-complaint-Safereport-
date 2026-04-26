@@ -1,0 +1,13 @@
+{
+  "name": "safereport-web",
+  "version": "1.0.0",
+  "description": "SafeReport Telangana Digital Police Portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "npx nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.1"
+  }
+}

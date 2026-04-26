@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Complaint Reporting - Secure Command</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#c1c3ed",
+                        "surface-container-high": "#eae7ef",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1b1b21",
+                        "primary-fixed": "#e0e0ff",
+                        "tertiary-container": "#670008",
+                        "tertiary": "#400003",
+                        "surface-container-low": "#f5f2fb",
+                        "surface-tint": "#4c56af",
+                        "surface": "#fbf8ff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "tertiary-fixed-dim": "#ffb3ac",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#ff635b",
+                        "inverse-primary": "#bdc2ff",
+                        "on-secondary-fixed": "#151839",
+                        "secondary-fixed": "#e0e0ff",
+                        "inverse-surface": "#303036",
+                        "outline-variant": "#c6c5d4",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "surface-container-highest": "#e4e1ea",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dbd9e1",
+                        "surface-bright": "#fbf8ff",
+                        "on-secondary-fixed-variant": "#414467",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d2d4ff",
+                        "on-surface-variant": "#454652",
+                        "outline": "#767683",
+                        "primary": "#000666",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#efecf5",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fbf8ff",
+                        "surface-variant": "#e4e1ea",
+                        "primary-container": "#1a237e",
+                        "on-primary-container": "#8690ee",
+                        "on-primary-fixed": "#000767",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f2eff8",
+                        "on-tertiary-fixed-variant": "#930010",
+                        "on-secondary-container": "#575b7f",
+                        "on-tertiary-fixed": "#410003",
+                        "on-background": "#1b1b21",
+                        "secondary": "#585c80",
+                        "tertiary-fixed": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Hide scrollbar for clean look but maintain functionality */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        /* Custom toggle switch styles to avoid standard browser elements */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #000666; /* primary */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #000666; /* primary */
+        }
+        .toggle-checkbox {
+            right: 4px;
+            z-index: 1;
+            border-color: #e4e1ea; /* surface-variant */
+            transition: all 0.3s;
+        }
+        .toggle-label {
+            width: 3rem;
+            height: 1.5rem;
+            background-color: #c6c5d4; /* outline-variant */
+            border-radius: 9999px;
+            transition: all 0.3s;
+        }
+        .toggle-dot {
+            top: 2px;
+            left: 2px;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .toggle-checkbox:checked ~ .toggle-dot {
+            transform: translateX(100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface font-body antialiased selection:bg-primary-fixed-dim selection:text-primary">
+<!-- 
+        Contextual Header
+        Suppressed global navigation due to Task-Focused intent.
+        Using tertiary button style for Back action.
+    -->
+<header class="sticky top-0 z-50 w-full bg-surface/90 backdrop-blur-xl px-6 py-5 shadow-[0_4px_32px_0_rgba(52,61,150,0.03)] flex justify-between items-center">
+<button class="group flex items-center gap-2 text-primary font-label font-bold tracking-tight hover:text-primary-container transition-colors focus:outline-none">
+<span class="material-symbols-outlined text-xl transition-transform group-hover:-translate-x-1" style="font-variation-settings: 'FILL' 1;">arrow_back</span>
+<span>Back</span>
+</button>
+<h1 class="absolute left-1/2 transform -translate-x-1/2 font-headline font-black text-xl tracking-tighter text-primary">Secure Report</h1>
+<!-- Verification Badge for visual security -->
+<div aria-hidden="true" class="flex items-center justify-center w-8 h-8 rounded-full bg-secondary-container text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-3xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-8 pb-32">
+<!-- Intro Text -->
+<div class="px-2">
+<h2 class="font-headline font-bold text-3xl tracking-tight text-primary mb-2">What happened?</h2>
+<p class="text-on-surface-variant text-base leading-relaxed max-w-xl">Provide details about the incident. Your information is encrypted and routed directly to the appropriate command center.</p>
+</div>
+<!-- Section 1: Incident Description (Tonal Layering: surface-lowest on surface-low) -->
+<section class="bg-surface-container-lowest rounded-xl p-6 md:p-8 shadow-[0_2px_12px_0_rgba(52,61,150,0.02)]">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">edit_document</span>
+</div>
+<h3 class="font-label font-bold text-sm uppercase tracking-widest text-primary">Incident Details</h3>
+</div>
+<div class="relative">
+<!-- No line rule: Using background shift for input field -->
+<textarea class="w-full bg-surface-variant text-on-surface placeholder:text-outline font-body text-base p-5 rounded-lg border-0 focus:ring-2 focus:ring-primary-fixed-dim transition-all resize-none" id="description" placeholder="Describe the events clearly and concisely..." rows="5"></textarea>
+</div>
+</section>
+<!-- Section 2: Location & Time (Asymmetrical Bento Structure) -->
+<section class="grid grid-cols-1 md:grid-cols-5 gap-4">
+<!-- Location Block (Spans 3 cols) -->
+<div class="md:col-span-3 bg-surface-container-lowest rounded-xl p-6 shadow-[0_2px_12px_0_rgba(52,61,150,0.02)] flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<h3 class="font-label font-bold text-sm uppercase tracking-widest text-primary">Location</h3>
+</div>
+<!-- Compound Input Group -->
+<div class="flex flex-col sm:flex-row gap-2 w-full">
+<div class="flex-grow flex items-center bg-surface-variant rounded-lg px-4 py-1 focus-within:ring-2 focus-within:ring-primary-fixed-dim transition-all">
+<input class="w-full bg-transparent border-0 focus:ring-0 text-on-surface placeholder:text-outline p-2 font-body" placeholder="Enter address manually" type="text" value="1420 Downtown Ave"/>
+</div>
+<button class="shrink-0 bg-primary-container text-on-primary-container hover:bg-primary transition-colors hover:text-on-primary rounded-lg px-4 py-3 flex items-center justify-center gap-2 font-label font-semibold text-sm">
+<span class="material-symbols-outlined text-[18px]">my_location</span>
+<span>Auto-Detect</span>
+</button>
+</div>
+<!-- Map Context Visual (Premium feel) -->
+<div class="w-full h-32 rounded-lg overflow-hidden relative border border-outline-variant/15">
+<img alt="Map" class="w-full h-full object-cover opacity-80 mix-blend-luminosity" data-alt="stylized vector map showing a specific location pin in a clean modern blue-toned interface" data-location="Downtown District" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDksvIgd_2xW4SFFYM9t2XUZxE8Bm9aOC6ybEdW7MHzdJ_XvtS65IGlCkT0LVgre3xaDCCp24G3ZUT_Ksj8DH-tTZljSYC9hwJM80VMhdJcT3iyLdgipNrr3wyV1U4QW02tewK1h0u735hmx7v5zH7mISQ0-tfL8IwLsSa8Q9GmQsgvqYZUKGS37oHgQc2oZ4NWEwR_j9F7mleayfBKBAytqhd9zsJkNVpncQvOmBI9YvJCL3SeM5MQlm-Ush2VIaz--0OFsI--mkU"/>
+<div class="absolute inset-0 bg-primary/10"></div>
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+<div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center animate-pulse">
+<div class="w-4 h-4 bg-primary rounded-full border-2 border-white shadow-lg"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Time Block (Spans 2 cols) -->
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl p-6 shadow-[0_2px_12px_0_rgba(52,61,150,0.02)] flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">schedule</span>
+</div>
+<h3 class="font-label font-bold text-sm uppercase tracking-widest text-primary">Time</h3>
+</div>
+<div class="bg-surface-variant rounded-lg px-4 py-1 mt-auto flex items-center focus-within:ring-2 focus-within:ring-primary-fixed-dim transition-all">
+<input class="w-full bg-transparent border-0 focus:ring-0 text-on-surface p-3 font-body font-semibold text-lg" type="time" value="14:30"/>
+</div>
+<div class="bg-surface-variant rounded-lg px-4 py-1 flex items-center focus-within:ring-2 focus-within:ring-primary-fixed-dim transition-all">
+<input class="w-full bg-transparent border-0 focus:ring-0 text-on-surface p-3 font-body" type="date"/>
+</div>
+</div>
+</section>
+<!-- Section 3: Evidence Upload (Glass & Subtle Texture) -->
+<section class="bg-surface-container-lowest rounded-xl p-6 md:p-8 shadow-[0_2px_12px_0_rgba(52,61,150,0.02)]">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">perm_media</span>
+</div>
+<h3 class="font-label font-bold text-sm uppercase tracking-widest text-primary">Evidence</h3>
+</div>
+<span class="text-xs font-label text-on-surface-variant bg-surface-container py-1 px-3 rounded-full">Optional</span>
+</div>
+<!-- Custom Dropzone avoiding standard 1px lines, using tonal dash -->
+<label class="group flex flex-col items-center justify-center w-full h-48 bg-surface-container-low rounded-xl border-2 border-dashed border-outline-variant/30 hover:bg-surface-container hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden">
+<div class="flex flex-col items-center justify-center pt-5 pb-6 z-10">
+<div class="w-14 h-14 mb-4 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-sm text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">cloud_upload</span>
+</div>
+<p class="mb-2 text-sm font-semibold text-on-surface text-center px-4">Tap to upload photos or video</p>
+<p class="text-xs text-on-surface-variant text-center">PNG, JPG, MP4 up to 50MB</p>
+</div>
+<input accept="image/*,video/*" class="hidden" id="dropzone-file" multiple="" type="file"/>
+<!-- Decorative background elements for structural feel -->
+<div class="absolute -right-4 -bottom-4 w-32 h-32 bg-primary-fixed/20 rounded-full blur-2xl group-hover:bg-primary-fixed/40 transition-all"></div>
+<div class="absolute -left-4 -top-4 w-24 h-24 bg-secondary-fixed/20 rounded-full blur-xl group-hover:bg-secondary-fixed/40 transition-all"></div>
+</label>
+</section>
+<!-- Section 4: Privacy & Submission -->
+<section class="mt-4 flex flex-col gap-6">
+<!-- Anonymous Toggle Block -->
+<div class="bg-surface-container-lowest rounded-xl p-5 flex items-center justify-between shadow-[0_2px_12px_0_rgba(52,61,150,0.02)]">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">visibility_off</span>
+</div>
+<div>
+<p class="font-label font-bold text-on-surface">Submit Anonymously</p>
+<p class="text-xs text-on-surface-variant mt-0.5 max-w-[200px] sm:max-w-none">Your personal identity will be stripped from this report.</p>
+</div>
+</div>
+<!-- Custom CSS Toggle -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer" for="toggle"></label>
+<div class="toggle-dot absolute shadow-sm pointer-events-none"></div>
+</div>
+</div>
+<!-- Primary Action Button (The Anchor) -->
+<!-- Signature Gradient, Full Roundness, Ambient Shadow -->
+<button class="w-full relative group overflow-hidden rounded-full shadow-[0_12px_32px_0_rgba(52,61,150,0.25)] hover:shadow-[0_16px_40px_0_rgba(52,61,150,0.35)] transition-all duration-300">
+<div class="absolute inset-0 bg-gradient-to-r from-primary to-primary-container w-full h-full"></div>
+<!-- Shine effect -->
+<div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-[shine_1.5s_ease-in-out_infinite]"></div>
+<div class="relative z-10 flex items-center justify-center w-full h-full py-5 px-8">
+<span class="font-label font-black text-on-primary text-lg tracking-wide flex items-center gap-3">
+                        Submit Report
+                        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">send</span>
+</span>
+</div>
+</button>
+<p class="text-center text-xs text-on-surface-variant mt-2 font-label">By submitting, you agree to our Terms of Service.</p>
+</section>
+</main>
+<style>
+        @keyframes shine {
+            100% { left: 200%; }
+        }
+    </style>
+</body></html>

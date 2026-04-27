@@ -3,10 +3,14 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from the current directory
-app.use(express.static(__dirname));
+// Serve static files from the current directory, auto-resolving .html extensions
+app.use(express.static(__dirname, { extensions: ['html'] }));
 
 // Serve index.html for the root or any unmatched routes to support SPA behavior
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'auth.html'));
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });

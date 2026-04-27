@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
-            background: #000;
+            background: #020617;
             color: white;
             display: flex;
             flex-direction: column;
@@ -17,19 +17,47 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            position: relative;
+        }
+        .sos-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.9)), url('emergency_sos_illustration_1777259503349.png') center/cover;
+            z-index: 1;
+            filter: blur(5px);
         }
         .sos-container {
             text-align: center;
             z-index: 10;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            padding: 4rem;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 100px rgba(230, 57, 70, 0.2);
         }
-        .sos-btn-large {
-            width: 250px;
-            height: 250px;
+        .sos-btn-outer {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 2px solid rgba(230, 57, 70, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 3rem auto;
+            position: relative;
+        }
+        .sos-btn-inner {
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
             background: var(--emergency-red);
-            border: 15px solid rgba(239, 68, 68, 0.3);
+            border: none;
             color: white;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 900;
             cursor: pointer;
             display: flex;
@@ -37,35 +65,41 @@
             justify-content: center;
             flex-direction: column;
             gap: 0.5rem;
-            box-shadow: 0 0 50px rgba(239, 68, 68, 0.5);
-            transition: transform 0.2s;
-            animation: pulse-border 1.5s infinite alternate;
+            box-shadow: 0 0 50px rgba(230, 57, 70, 0.5);
+            transition: all 0.2s;
+            z-index: 2;
         }
-        .sos-btn-large:active {
-            transform: scale(0.95);
+        .sos-btn-inner:active {
+            transform: scale(0.92);
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.8);
         }
-        @keyframes pulse-border {
-            0% { border-width: 15px; border-color: rgba(239, 68, 68, 0.3); }
-            100% { border-width: 30px; border-color: rgba(239, 68, 68, 0.1); }
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--emergency-red);
+            opacity: 0.3;
+            animation: pulse-out 2s infinite;
+        }
+        @keyframes pulse-out {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.5); opacity: 0; }
         }
         .status-msg {
-            margin-top: 2rem;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: #ef4444;
-            height: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--emergency-red);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
         .info-panel {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
+            margin-top: 3rem;
+            padding: 1.5rem 2.5rem;
+            background: rgba(255,255,255,0.05);
             border-radius: var(--radius-full);
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
             border: 1px solid rgba(255,255,255,0.1);
         }
         .location-dot {
@@ -74,7 +108,7 @@
             background: var(--success-green);
             border-radius: 50%;
             display: inline-block;
-            margin-right: 0.5rem;
+            margin-right: 0.75rem;
             animation: blink 1s infinite;
         }
         @keyframes blink {
@@ -85,31 +119,41 @@
 </head>
 <body>
 
-    <a href="index.html" style="position: absolute; top: 2rem; left: 2rem; color: white; display: flex; align-items: center; gap: 0.5rem; opacity: 0.7;">
-        <i data-lucide="arrow-left"></i> Back to Safety
+    <div class="sos-bg"></div>
+
+    <a href="dashboard.html" style="position: absolute; top: 3rem; left: 3rem; color: white; display: flex; align-items: center; gap: 0.75rem; z-index: 10; font-weight: 600; opacity: 0.8;">
+        <i data-lucide="arrow-left"></i> Return to Dashboard
     </a>
 
-    <div class="sos-container">
-        <button class="sos-btn-large" id="sos-trigger">
-            <i data-lucide="alert-triangle" style="width: 50px; height: 50px;"></i>
-            SOS
-        </button>
-        <p class="status-msg" id="status-text">Click the button for immediate assistance</p>
-        <p style="opacity: 0.6; margin-top: 1rem;">Misuse of SOS is a punishable offense under IT Act.</p>
+    <div class="sos-container fade-up">
+        <h2 style="font-size: 1.5rem; margin-bottom: 3rem; opacity: 0.9; letter-spacing: 0.1em; text-transform: uppercase;">Emergency Response Hub</h2>
+        <div class="sos-btn-outer">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring" style="animation-delay: 0.5s;"></div>
+            <button class="sos-btn-inner" id="sos-trigger">
+                <i data-lucide="alert-triangle" style="width: 60px; height: 60px;"></i>
+                SOS
+            </button>
+        </div>
+        <p class="status-msg" id="status-text">Hold to Broadcast Alert</p>
+        <p style="opacity: 0.5; margin-top: 1.5rem; font-size: 0.85rem;">Your identity and location will be sent to the nearest patrol unit.</p>
     </div>
 
-    <div class="info-panel">
-        <div>
+    <div class="info-panel z-10">
+        <div style="display: flex; align-items: center;">
             <span class="location-dot"></span>
-            GPS: <span id="coords" style="font-family: monospace;">Awaiting Data...</span>
+            <span style="font-size: 0.9rem; opacity: 0.8;">GPS: <strong id="coords" style="font-family: monospace;">Locking...</strong></span>
         </div>
-        <div>
-            <i data-lucide="shield" style="width: 14px; inline-block; vertical-align: middle; color: var(--accent-gold);"></i>
-            Signal: <span style="color: var(--success-green);">Strong</span>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <i data-lucide="shield-check" style="width: 18px; color: var(--accent-gold);"></i>
+            <span style="font-size: 0.9rem; opacity: 0.8;">Network: <strong style="color: var(--success-green);">Secure</strong></span>
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { auth, db } from './js/firebase-config.js';
+        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
         lucide.createIcons();
         
         const sosBtn = document.getElementById('sos-trigger');
@@ -117,34 +161,58 @@
         const coordsText = document.getElementById('coords');
         let isSending = false;
 
-        sosBtn.addEventListener('click', () => {
+        // Auto-lock location on page load
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((pos) => {
+                coordsText.innerText = `${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
+            });
+        }
+
+        sosBtn.addEventListener('click', async () => {
             if(isSending) return;
             
             isSending = true;
-            statusText.innerText = "CAPTURING LIVE GEOLOCATION...";
+            statusText.innerText = "Transmitting Signal...";
             statusText.style.color = "#fbbf24";
 
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((pos) => {
-                    const lat = pos.coords.latitude.toFixed(6);
-                    const lng = pos.coords.longitude.toFixed(6);
-                    coordsText.innerText = `${lat}, ${lng}`;
+                navigator.geolocation.getCurrentPosition(async (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    coordsText.innerText = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
                     
-                    statusText.innerText = "ALERT SENT TO NEAREST PATROL TEAM!";
-                    statusText.style.color = "#10b981";
-                    sosBtn.style.background = "#10b981";
-                    sosBtn.style.animation = "none";
-                    sosBtn.innerHTML = '<i data-lucide="check-circle" style="width: 50px; height: 50px;"></i> SAFE';
-                    lucide.createIcons();
-                    
-                    alert(`EMERGENCY ALERT BROADCAST!\nLocation: ${lat}, ${lng}\nA patrol car has been dispatched to your location.`);
+                    try {
+                        const user = auth.currentUser;
+                        // Save SOS Alert to Firestore
+                        await addDoc(collection(db, "sos_alerts"), {
+                            uid: user ? user.uid : 'Guest',
+                            email: user ? user.email : 'Guest',
+                            name: user ? user.displayName : 'Unknown Citizen',
+                            location: { lat, lng },
+                            timestamp: serverTimestamp(),
+                            status: 'Critical'
+                        });
+
+                        statusText.innerText = "Alert Received by Police!";
+                        statusText.style.color = "#10b981";
+                        sosBtn.style.background = "#10b981";
+                        sosBtn.style.boxShadow = "0 0 50px rgba(16, 185, 129, 0.5)";
+                        sosBtn.innerHTML = '<i data-lucide="check-circle" style="width: 60px; height: 60px;"></i> SAFE';
+                        lucide.createIcons();
+                        
+                        alert(`CRITICAL ALERT BROADCAST!\nPolice Patrol TS-99 has been dispatched to your current coordinates.\nEstimated Arrival: 4-6 minutes.`);
+                    } catch (err) {
+                        console.error("SOS Save Failed:", err);
+                        statusText.innerText = "Broadcast Error! Try Again.";
+                        isSending = false;
+                    }
+
                 }, (err) => {
-                    statusText.innerText = "GPS FAILED. SENDING NETWORK LOCATION...";
-                    coordsText.innerText = "17.3850, 78.4867 (Hyd Central)";
+                    statusText.innerText = "GPS Error. Using Static IP.";
+                    coordsText.innerText = "17.3850, 78.4867";
                 });
             }
         });
     </script>
-    <script type='module' src='js/global-auth.js'></script>
 </body>
 </html>

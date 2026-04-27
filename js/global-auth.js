@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 authNavItem.href = "auth.html";
                 authNavItem.innerText = "Login";
             }
+            
+            // Protect routes
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const protectedRoutes = ['complaint.html', 'dashboard.html', 'admin.html'];
+            if (protectedRoutes.includes(currentPage)) {
+                console.log("Redirecting to login: Protected route");
+                window.location.href = 'auth.html';
+            }
         }
     });
 

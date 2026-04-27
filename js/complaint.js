@@ -12,11 +12,20 @@ if (complaintForm) {
         const user = auth.currentUser;
         const title = document.getElementById('title').value;
         const category = document.getElementById('category').value;
-        const location = document.getElementById('location').value;
+        const locationStr = document.getElementById('location').value;
         const description = document.getElementById('description').value;
         const isAnonymous = document.getElementById('anonymous').checked;
         
-        const complaintId = 'TS' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        // Premium ID Generation: TS-YYYY-RANDOM
+        const year = new Date().getFullYear();
+        const randomPart = Math.random().toString(36).substr(2, 6).toUpperCase();
+        const complaintId = `TS-${year}-${randomPart}`;
+        
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i data-lucide="loader" class="animate-spin"></i> Processing...';
+        lucide.createIcons();
         
         try {
             let evidenceUrls = [];
@@ -32,13 +41,14 @@ if (complaintForm) {
             }
 
             // Save to Firestore
-            const docRef = await addDoc(collection(db, "complaints"), {
+            await addDoc(collection(db, "complaints"), {
                 complaintId: complaintId,
-                uid: isAnonymous ? null : (user ? user.uid : 'Guest'),
-                email: isAnonymous ? null : (user ? user.email : 'Guest'),
+                uid: user ? user.uid : 'Guest',
+                email: user ? user.email : 'Guest',
+                userName: user ? (user.displayName || 'Citizen') : 'Guest',
                 title: title,
                 category: category,
-                location: location,
+                location: locationStr,
                 description: description,
                 evidence: evidenceUrls,
                 status: "Submitted",
@@ -46,13 +56,15 @@ if (complaintForm) {
                 isAnonymous: isAnonymous
             });
 
-            console.log("Complaint saved with ID: ", docRef.id);
-            alert(`Complaint Submitted! ID: ${complaintId}`);
+            alert(`Official Complaint Registered Successfully!\n\nYour Case ID: ${complaintId}\nPlease save this for future tracking.`);
             window.location.href = `track.html?id=${complaintId}`;
             
         } catch (error) {
             console.error("Error submitting complaint: ", error);
             alert("Submission failed: " + error.message);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            lucide.createIcons();
         }
     });
 }

@@ -7,55 +7,76 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        .form-container {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
+        .form-page-wrapper {
+            padding: 5rem 0;
+            background: #f1f5f9;
+            min-height: calc(100vh - 80px);
         }
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+        }
+        .form-sidebar {
+            background: var(--primary-blue);
+            color: white;
+            padding: 3rem 2rem;
+        }
+        .form-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+        .form-step.active {
+            opacity: 1;
+        }
+        .step-num {
+            width: 32px;
+            height: 32px;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .form-content {
+            padding: 4rem;
+        }
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            padding: 3rem;
+            text-align: center;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--transition);
+            background: #f8fafc;
+        }
+        .upload-zone:hover {
+            border-color: var(--highlight-blue);
+            background: rgba(44, 116, 179, 0.05);
+        }
+        
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
         }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--primary-blue);
-        }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 0.85rem;
-            border: 1.5px solid var(--border-color);
-            border-radius: var(--radius-md);
-            outline: none;
-            transition: all 0.3s;
-        }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--secondary-blue);
-            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
-        }
-        .upload-zone {
-            border: 2px dashed var(--border-color);
-            padding: 2rem;
-            text-align: center;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-        .upload-zone:hover {
-            border-color: var(--secondary-blue);
-            background: rgba(0, 102, 204, 0.05);
-        }
         .full-width { grid-column: span 2; }
         
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+            .form-container { grid-template-columns: 1fr; }
+            .form-sidebar { display: none; }
+            .form-content { padding: 2rem; }
             .form-grid { grid-template-columns: 1fr; }
             .full-width { grid-column: span 1; }
         }
@@ -70,96 +91,159 @@
                 Safe<span>Report</span>
             </a>
             <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="track.html">Track Complaint</a>
-                <a href="dashboard.html" class="btn btn-outline">Dashboard</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="track.html">Track Status</a>
+                <a href="sos.html" class="btn btn-sos">SOS</a>
             </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="form-container">
-            <div style="margin-bottom: 2rem;">
-                <h2 style="color: var(--primary-blue); font-size: 1.75rem;">Digital Incident Reporting</h2>
-                <p style="color: var(--text-muted);">Please provide accurate details for official verification.</p>
-            </div>
-
-            <form id="complaint-form">
-                <div class="form-grid">
-                    <div class="form-group full-width">
-                        <label for="title">Complaint Title / Short Description</label>
-                        <input type="text" id="title" placeholder="e.g., Mobile Phone Theft at Metro Station" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <select id="category" required>
-                            <option value="">Select Category</option>
-                            <option value="Theft">Theft / Robbery</option>
-                            <option value="Harassment">Women Harassment</option>
-                            <option value="Cybercrime">Cybercrime / Fraud</option>
-                            <option value="Accident">Road Accident</option>
-                            <option value="Missing">Missing Person</option>
-                            <option value="Assault">Physical Assault</option>
-                            <option value="Other">Other Emergency</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="location">Incident Location</label>
-                        <input type="text" id="location" placeholder="City, Area, Landmark" required>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="description">Detailed Description</label>
-                        <textarea id="description" rows="5" placeholder="Describe the incident in detail (date, time, individuals involved)..." required></textarea>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label>Image / Video Evidence</label>
-                        <div class="upload-zone" id="upload-trigger">
-                            <i data-lucide="upload-cloud" style="width: 48px; height: 48px; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                            <p>Click or drag files here to upload evidence</p>
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">Max size: 50MB (JPG, PNG, MP4)</span>
-                            <input type="file" id="evidence-upload" hidden multiple accept="image/*,video/*">
+    <div class="form-page-wrapper">
+        <div class="container">
+            <div class="form-container fade-up">
+                <div class="form-sidebar">
+                    <h3 style="margin-bottom: 3rem; font-size: 1.5rem;">Filing Process</h3>
+                    <div class="form-step active" id="step1-indicator">
+                        <div class="step-num">1</div>
+                        <div>
+                            <p style="font-weight: 600;">Incident Info</p>
+                            <p style="font-size: 0.75rem; opacity: 0.7;">Category & Location</p>
                         </div>
                     </div>
-
-                    <div class="form-group full-width" style="display: flex; align-items: center; gap: 0.75rem;">
-                        <input type="checkbox" id="anonymous" style="width: auto;">
-                        <label for="anonymous" style="margin-bottom: 0; font-weight: 500;">File as Anonymous Complaint (Identity Hidden)</label>
+                    <div class="form-step" id="step2-indicator">
+                        <div class="step-num">2</div>
+                        <div>
+                            <p style="font-weight: 600;">Detailed Brief</p>
+                            <p style="font-size: 0.75rem; opacity: 0.7;">Evidence & Timeline</p>
+                        </div>
+                    </div>
+                    <div class="form-step" id="step3-indicator">
+                        <div class="step-num">3</div>
+                        <div>
+                            <p style="font-weight: 600;">Confirmation</p>
+                            <p style="font-size: 0.75rem; opacity: 0.7;">Submit for Review</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: auto; background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: var(--radius-md); font-size: 0.85rem;">
+                        <i data-lucide="info" style="width: 16px; margin-bottom: 0.5rem;"></i>
+                        <p>Providing false information is a punishable offense under Section 182 of the IPC.</p>
                     </div>
                 </div>
 
-                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-                    <button type="submit" class="btn btn-primary" style="flex: 2; padding: 1.25rem;">
-                        <i data-lucide="send"></i>
-                        Submit Official Complaint
-                    </button>
-                    <button type="reset" class="btn btn-outline" style="flex: 1;">Cancel</button>
+                <div class="form-content">
+                    <form id="complaint-form">
+                        <!-- Step 1 Content -->
+                        <div id="step1-content">
+                            <h2 style="color: var(--primary-blue); margin-bottom: 2rem;">Incident Details</h2>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label for="title">Title of the Incident</label>
+                                    <input type="text" id="title" class="form-control" placeholder="Briefly describe the event..." required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Category</label>
+                                    <select id="category" class="form-control" required>
+                                        <option value="">Select Category</option>
+                                        <option value="Theft">Theft / Robbery</option>
+                                        <option value="Harassment">Women Harassment</option>
+                                        <option value="Cybercrime">Cybercrime / Fraud</option>
+                                        <option value="Road Safety">Traffic / Accident</option>
+                                        <option value="Missing">Missing Person</option>
+                                        <option value="Vandalism">Public Vandalism</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Incident Location</label>
+                                    <div style="position: relative;">
+                                        <input type="text" id="location" class="form-control" placeholder="Area, City..." required>
+                                        <button type="button" id="get-location" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--highlight-blue); cursor: pointer;">
+                                            <i data-lucide="map-pin" style="width: 18px;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="description">Detailed Description</label>
+                                    <textarea id="description" class="form-control" rows="5" placeholder="Describe the sequence of events, individuals involved, etc..." required></textarea>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(2)" style="margin-top: 2rem; width: 100%;">Continue to Evidence <i data-lucide="arrow-right"></i></button>
+                        </div>
+
+                        <!-- Step 2 Content -->
+                        <div id="step2-content" style="display: none;">
+                            <h2 style="color: var(--primary-blue); margin-bottom: 2rem;">Evidence Upload</h2>
+                            <div class="form-group">
+                                <label>Photos or Video Clips (Optional but Recommended)</label>
+                                <div class="upload-zone" id="upload-trigger">
+                                    <i data-lucide="upload-cloud" style="width: 50px; height: 50px; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                                    <h4 style="color: var(--text-dark);">Click to select files</h4>
+                                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Max 5 files. Support for JPG, PNG, MP4 up to 50MB.</p>
+                                    <input type="file" id="evidence-upload" hidden multiple accept="image/*,video/*">
+                                </div>
+                                <div id="file-preview" style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;"></div>
+                            </div>
+                            
+                            <div class="form-group" style="display: flex; align-items: center; gap: 1rem; background: #fff7ed; padding: 1rem; border-radius: var(--radius-md); border: 1px solid #fed7aa; margin-top: 2rem;">
+                                <input type="checkbox" id="anonymous" style="width: 20px; height: 20px;">
+                                <div>
+                                    <label for="anonymous" style="margin-bottom: 0;">File as Anonymous</label>
+                                    <p style="font-size: 0.75rem; color: #9a3412;">Your name and email will be hidden from the public log, but shared with investigators.</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 1rem; margin-top: 3rem;">
+                                <button type="button" class="btn btn-outline" onclick="nextStep(1)" style="flex: 1;"><i data-lucide="arrow-left"></i> Back</button>
+                                <button type="submit" class="btn btn-primary" style="flex: 2;">Submit Official Complaint <i data-lucide="send"></i></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
     <script type="module" src="js/complaint.js"></script>
     <script>
         lucide.createIcons();
-        
+
+        function nextStep(step) {
+            document.getElementById('step1-content').style.display = step === 1 ? 'block' : 'none';
+            document.getElementById('step2-content').style.display = step === 2 ? 'block' : 'none';
+            
+            document.getElementById('step1-indicator').classList.toggle('active', step >= 1);
+            document.getElementById('step2-indicator').classList.toggle('active', step >= 2);
+            document.getElementById('step3-indicator').classList.toggle('active', step >= 3);
+        }
+
+        // Location auto-fill
+        document.getElementById('get-location').addEventListener('click', () => {
+            if (navigator.geolocation) {
+                document.getElementById('location').value = "Detecting location...";
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    document.getElementById('location').value = `${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)} (Approx)`;
+                }, () => {
+                    document.getElementById('location').value = "Detection failed.";
+                });
+            }
+        });
+
+        // Evidence Preview
         const uploadTrigger = document.getElementById('upload-trigger');
         const fileInput = document.getElementById('evidence-upload');
+        const filePreview = document.getElementById('file-preview');
 
-        if (uploadTrigger && fileInput) {
-            uploadTrigger.addEventListener('click', () => fileInput.click());
-            
-            fileInput.addEventListener('change', (e) => {
-                if(fileInput.files.length > 0) {
-                    uploadTrigger.innerHTML = `<i data-lucide="check-circle" style="color: var(--success-green);"></i> <p>${fileInput.files.length} files selected</p>`;
-                    lucide.createIcons();
-                }
-            });
-        }
+        uploadTrigger.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', () => {
+            filePreview.innerHTML = '';
+            for (const file of fileInput.files) {
+                const div = document.createElement('div');
+                div.style = "padding: 0.5rem 1rem; background: var(--highlight-blue); color: white; border-radius: var(--radius-full); font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;";
+                div.innerHTML = `<i data-lucide="file" style="width:14px;"></i> ${file.name}`;
+                filePreview.appendChild(div);
+            }
+            lucide.createIcons();
+        });
     </script>
-
 </body>
 </html>

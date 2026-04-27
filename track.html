@@ -7,81 +7,113 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        .track-wrapper {
+            padding: 5rem 0;
+            background: #f1f5f9;
+            min-height: calc(100vh - 80px);
+        }
         .search-container {
             max-width: 600px;
-            margin: 4rem auto;
+            margin: 0 auto 4rem auto;
             text-align: center;
         }
         .search-box {
             display: flex;
-            gap: 0.5rem;
-            margin-top: 2rem;
+            gap: 1rem;
+            margin-top: 2.5rem;
             background: white;
-            padding: 0.5rem;
-            border-radius: var(--radius-md);
+            padding: 0.75rem;
+            border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
         }
         .search-box input {
             flex: 1;
             border: none;
-            padding: 1rem;
+            padding: 0.75rem 1rem;
             outline: none;
             font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--primary-blue);
         }
         
         /* Timeline Styles */
-        .timeline {
+        .timeline-card {
             max-width: 800px;
-            margin: 4rem auto;
-            padding: 2rem;
+            margin: 0 auto;
             background: white;
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-xl);
             box-shadow: var(--shadow-lg);
+            padding: 4rem;
             display: none; /* Shown on search */
         }
-        .timeline-step {
+        .timeline-header {
             display: flex;
-            gap: 2rem;
-            position: relative;
-            padding-bottom: 3rem;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
         }
-        .timeline-step:last-child { padding-bottom: 0; }
-        .timeline-step::before {
+        
+        .timeline-steps {
+            position: relative;
+            padding-left: 3rem;
+        }
+        .timeline-steps::before {
             content: '';
             position: absolute;
-            left: 15px;
-            top: 30px;
-            width: 2px;
-            height: calc(100% - 30px);
-            background: var(--border-color);
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: #f1f5f9;
+            border-radius: 4px;
         }
-        .timeline-step.active::before { background: var(--secondary-blue); }
-        .timeline-step:last-child::before { display: none; }
-        
-        .step-icon {
-            width: 32px;
-            height: 32px;
+        .step-item {
+            position: relative;
+            padding-bottom: 4rem;
+        }
+        .step-item:last-child { padding-bottom: 0; }
+        .step-dot {
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 4px solid #f1f5f9;
             border-radius: 50%;
-            background: var(--bg-light);
-            border: 2px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
+            z-index: 2;
+            transition: var(--transition);
         }
-        .timeline-step.completed .step-icon {
+        .step-item.active .step-dot {
+            border-color: var(--highlight-blue);
+            background: var(--highlight-blue);
+            box-shadow: 0 0 0 6px rgba(44, 116, 179, 0.1);
+        }
+        .step-item.completed .step-dot {
             background: var(--success-green);
             border-color: var(--success-green);
-            color: white;
         }
-        .timeline-step.active .step-icon {
-            background: var(--secondary-blue);
-            border-color: var(--secondary-blue);
-            color: white;
-            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.2);
+        .step-content h4 {
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.25rem;
         }
-        .step-content h4 { color: var(--primary-blue); }
-        .step-content p { color: var(--text-muted); font-size: 0.9rem; }
+        .step-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .status-badge-lg {
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 0.9rem;
+            background: #f1f5f9;
+            color: var(--text-dark);
+        }
     </style>
 </head>
 <body>
@@ -94,71 +126,46 @@
             </a>
             <nav class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="complaint.html">New Complaint</a>
+                <a href="dashboard.html">Dashboard</a>
                 <a href="auth.html" class="btn btn-outline">Login</a>
             </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="search-container">
-            <h1 style="color: var(--primary-blue);">Track Your Complaint</h1>
-            <p style="color: var(--text-muted);">Enter your 11-digit Complaint ID to check the progress.</p>
-            
-            <div class="search-box">
-                <input type="text" id="track-id" placeholder="TS827364591...">
-                <button class="btn btn-primary" id="search-btn">
-                    <i data-lucide="search"></i>
-                    Track Status
-                </button>
-            </div>
-        </div>
-
-        <div class="timeline" id="tracking-result">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
-                <div>
-                    <h3 id="result-id">ID: TS827364591</h3>
-                    <p style="color: var(--text-muted);">Category: <span id="result-category">Cybercrime</span></p>
-                </div>
-                <div style="background: rgba(0, 102, 204, 0.1); color: var(--secondary-blue); padding: 0.5rem 1rem; border-radius: var(--radius-full); font-weight: 600;">
-                    Currently: Under Review
+    <div class="track-wrapper">
+        <div class="container">
+            <div class="search-container">
+                <h1 style="font-size: 2.5rem; color: var(--primary-blue);">Track Case Progress</h1>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">Securely monitor the real-time status of your official complaint.</p>
+                
+                <div class="search-box">
+                    <input type="text" id="track-id" placeholder="Enter Case ID (e.g. TS-2026-XXXXXX)">
+                    <button class="btn btn-primary" id="search-btn" style="padding: 0 2rem;">
+                        <i data-lucide="search"></i>
+                        Track Now
+                    </button>
                 </div>
             </div>
 
-            <!-- Steps -->
-            <div class="timeline-step completed">
-                <div class="step-icon"><i data-lucide="check" style="width: 16px;"></i></div>
-                <div class="step-content">
-                    <h4>Submitted</h4>
-                    <p>April 25, 2026 - 10:30 AM</p>
-                    <p style="margin-top: 0.5rem;">Complaint successfully received by central server and ID generated.</p>
+            <div class="timeline-card fade-up" id="tracking-result">
+                <div class="timeline-header">
+                    <div>
+                        <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Complaint Record</span>
+                        <h2 id="result-id" style="font-size: 1.75rem; color: var(--primary-blue); margin-top: 0.25rem;">ID: ---</h2>
+                        <p style="margin-top: 0.5rem; color: var(--text-muted);">Incident: <span id="result-category" style="font-weight: 600; color: var(--text-dark);">General</span></p>
+                    </div>
+                    <div id="current-status-badge" class="status-badge-lg">
+                        Processing...
+                    </div>
                 </div>
-            </div>
 
-            <div class="timeline-step active">
-                <div class="step-icon"><i data-lucide="search" style="width: 16px;"></i></div>
-                <div class="step-content">
-                    <h4>Under Review</h4>
-                    <p>April 26, 2026 - 09:15 AM</p>
-                    <p style="margin-top: 0.5rem;">The verification team is reviewing the evidence and description provided.</p>
+                <div class="timeline-steps" id="timeline-steps-container">
+                    <!-- Dynamic Steps -->
                 </div>
-            </div>
-
-            <div class="timeline-step">
-                <div class="step-icon">3</div>
-                <div class="step-content">
-                    <h4>Officer Assigned</h4>
-                    <p>Pending...</p>
-                    <p style="margin-top: 0.5rem;">An investigating officer from the nearest station will be assigned.</p>
-                </div>
-            </div>
-
-            <div class="timeline-step">
-                <div class="step-icon">4</div>
-                <div class="step-content">
-                    <h4>Resolved</h4>
-                    <p>Pending...</p>
-                    <p style="margin-top: 0.5rem;">Final report filed and case closed.</p>
+                
+                <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 1rem;">
+                    <i data-lucide="help-circle" style="color: var(--highlight-blue);"></i>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Need more details? Contact the assigned officer via the dashboard portal.</p>
                 </div>
             </div>
         </div>
@@ -175,25 +182,63 @@
         const trackIdInp = document.getElementById('track-id');
         const resId = document.getElementById('result-id');
         const resCat = document.getElementById('result-category');
+        const statusBadge = document.getElementById('current-status-badge');
+        const stepsContainer = document.getElementById('timeline-steps-container');
+
+        const statusMap = ['Submitted', 'Under Review', 'Assigned', 'Resolved'];
 
         async function performTrack(id) {
             if(!id) return;
             
-            const q = query(collection(db, "complaints"), where("complaintId", "==", id));
+            searchBtn.disabled = true;
+            searchBtn.innerHTML = '<i data-lucide="loader" class="animate-spin"></i> Tracking...';
+            lucide.createIcons();
+
+            const q = query(collection(db, "complaints"), where("complaintId", "==", id.trim()));
             const querySnapshot = await getDocs(q);
             
             if (!querySnapshot.empty) {
                 const data = querySnapshot.docs[0].data();
                 timeline.style.display = 'block';
-                resId.innerText = 'ID: ' + id;
+                resId.innerText = id.trim();
                 resCat.innerText = data.category || 'General';
+                const currentStatus = data.status || 'Submitted';
+                statusBadge.innerText = currentStatus;
+                
+                const currentIndex = statusMap.indexOf(currentStatus);
+                stepsContainer.innerHTML = '';
+                
+                statusMap.forEach((status, index) => {
+                    let stepClass = '';
+                    if (index < currentIndex) stepClass = 'completed';
+                    else if (index === currentIndex) stepClass = 'active';
+                    
+                    let timeStr = 'Awaiting...';
+                    if (index <= currentIndex) {
+                         timeStr = data.createdAt ? data.createdAt.toDate().toLocaleString() : 'Recent';
+                    }
+
+                    stepsContainer.innerHTML += `
+                        <div class="step-item ${stepClass}">
+                            <div class="step-dot"></div>
+                            <div class="step-content">
+                                <h4>${status}</h4>
+                                <p>${timeStr}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                lucide.createIcons();
                 timeline.scrollIntoView({ behavior: 'smooth' });
             } else {
-                alert('No complaint found with this ID.');
+                alert('No complaint found with this ID. Please double check.');
             }
+            searchBtn.disabled = false;
+            searchBtn.innerHTML = '<i data-lucide="search"></i> Track Now';
+            lucide.createIcons();
         }
 
-        // Handle URL parameter
         const urlParams = new URLSearchParams(window.location.search);
         if(urlParams.has('id')) {
             const id = urlParams.get('id');
@@ -203,7 +248,5 @@
 
         searchBtn.addEventListener('click', () => performTrack(trackIdInp.value));
     </script>
-
-    <script type='module' src='js/global-auth.js'></script>
 </body>
 </html>

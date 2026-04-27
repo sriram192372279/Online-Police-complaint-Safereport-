@@ -3,111 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login / Signup | SafeReport Telangana</title>
+    <title>Secure Access | SafeReport Telangana</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body {
-            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
-            height: 100vh;
+        .auth-wrapper {
+            min-height: calc(100vh - 80px);
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(10, 38, 71, 0.05) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
         }
         .auth-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
             padding: 3rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            z-index: 10;
         }
-        .input-group {
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .auth-header i {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px;
+            border-radius: 16px;
             margin-bottom: 1.5rem;
         }
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .input-group input:focus {
-            border-color: var(--secondary-blue);
-        }
-        .google-btn {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            background: white;
-            color: var(--text-dark);
-            border: 1px solid var(--border-color);
-            margin-top: 1.5rem;
+        .social-auth {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
         .divider {
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
             color: var(--text-muted);
+            font-size: 0.85rem;
         }
         .divider::before, .divider::after {
             content: '';
             flex: 1;
             border-bottom: 1px solid var(--border-color);
         }
-        .divider::before { margin-right: .5em; }
-        .divider::after { margin-left: .5em; }
+        .divider:not(:empty)::before { margin-right: .75rem; }
+        .divider:not(:empty)::after { margin-left: .75rem; }
+        
+        #register-fields {
+            display: none;
+        }
+        .auth-toggle-link {
+            color: var(--highlight-blue);
+            font-weight: 600;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <div class="auth-card animate-up">
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <a href="index.html" class="logo" style="justify-content: center; margin-bottom: 0.5rem;">
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
                 <i data-lucide="shield-check"></i>
                 Safe<span>Report</span>
             </a>
-            <p id="auth-title" style="color: var(--text-muted);">Secure Citizen Login</p>
+            <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                <i data-lucide="arrow-left"></i> Back to Home
+            </a>
         </div>
+    </header>
 
-        <form id="login-form">
-            <div class="input-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="name@domain.com" required>
+    <div class="auth-wrapper">
+        <div class="auth-card fade-up">
+            <div class="auth-header">
+                <i data-lucide="lock"></i>
+                <h2 id="auth-title">Citizen Login</h2>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">Access your secure digital dashboard</p>
             </div>
-            <div class="input-group">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <label style="margin-bottom: 0;">Password</label>
-                    <a href="#" style="font-size: 0.85rem; color: var(--secondary-blue);">Forgot password?</a>
+
+            <div class="social-auth">
+                <button class="btn btn-outline" id="google-login-btn" style="width: 100%; gap: 1rem; background: white;">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google">
+                    Continue with Google
+                </button>
+            </div>
+
+            <div class="divider">Or secure email login</div>
+
+            <form id="auth-form">
+                <div id="register-fields">
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" class="form-control" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="+91 XXXXX XXXXX">
+                    </div>
                 </div>
-                <input type="password" id="password" placeholder="••••••••" required>
-            </div>
-            
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
-        </form>
 
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+                </div>
 
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <label for="password">Password</label>
+                        <a href="#" style="font-size: 0.8rem; color: var(--highlight-blue);" id="forgot-password">Forgot?</a>
+                    </div>
+                    <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                </div>
 
-        <p style="text-align: center; margin-top: 2rem; color: var(--text-muted);">
-            Don't have an account? <a href="#" id="toggle-auth" style="color: var(--secondary-blue); font-weight: 600;">Create Account</a>
-        </p>
+                <button type="submit" class="btn btn-primary" id="submit-btn" style="width: 100%; padding: 1rem; margin-top: 1rem;">
+                    Sign In to Dashboard
+                </button>
+            </form>
+
+            <p style="text-align: center; margin-top: 2rem; font-size: 0.95rem; color: var(--text-muted);">
+                <span id="toggle-text">Don't have an account?</span> 
+                <span class="auth-toggle-link" id="toggle-auth">Create Account</span>
+            </p>
+        </div>
     </div>
 
     <script type="module" src="js/auth.js"></script>
     <script>
         lucide.createIcons();
-    </script>
+        
+        const toggleAuth = document.getElementById('toggle-auth');
+        const authTitle = document.getElementById('auth-title');
+        const submitBtn = document.getElementById('submit-btn');
+        const regFields = document.getElementById('register-fields');
+        const toggleText = document.getElementById('toggle-text');
+        
+        let isLogin = true;
 
+        toggleAuth.addEventListener('click', () => {
+            isLogin = !isLogin;
+            
+            if (isLogin) {
+                authTitle.innerText = "Citizen Login";
+                submitBtn.innerText = "Sign In to Dashboard";
+                toggleText.innerText = "Don't have an account?";
+                toggleAuth.innerText = "Create Account";
+                regFields.style.display = "none";
+                document.getElementById('forgot-password').style.display = "block";
+            } else {
+                authTitle.innerText = "Create Account";
+                submitBtn.innerText = "Register New Account";
+                toggleText.innerText = "Already have an account?";
+                toggleAuth.innerText = "Sign In";
+                regFields.style.display = "block";
+                document.getElementById('forgot-password').style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>

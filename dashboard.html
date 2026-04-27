@@ -17,24 +17,28 @@
         aside {
             background: var(--primary-blue);
             color: white;
-            padding: 2rem;
+            padding: 2.5rem;
             display: flex;
             flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
         }
         .aside-menu {
-            margin-top: 3rem;
+            margin-top: 4rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.75rem;
         }
         .menu-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem;
+            gap: 1.25rem;
+            padding: 1rem 1.25rem;
             border-radius: var(--radius-md);
-            transition: 0.3s;
-            opacity: 0.7;
+            transition: var(--transition);
+            opacity: 0.6;
+            font-weight: 500;
         }
         .menu-item:hover, .menu-item.active {
             background: rgba(255,255,255,0.1);
@@ -43,56 +47,114 @@
         
         /* Main Content */
         main {
-            padding: 3rem;
-            overflow-y: auto;
+            padding: 4rem;
+            background: #f1f5f9;
         }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
             margin-bottom: 3rem;
         }
         .stat-card {
             background: white;
-            padding: 1.5rem;
-            border-radius: var(--radius-md);
-            border-left: 4px solid var(--secondary-blue);
-            box-shadow: var(--shadow-sm);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Table Styles */
+        .table-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        .table-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .complaint-table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-        .complaint-table th, .complaint-table td {
-            text-align: left;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
         }
         .complaint-table th {
-            background: var(--bg-light);
-            font-weight: 600;
-            color: var(--primary-blue);
+            text-align: left;
+            padding: 1.25rem 2rem;
+            background: #f8fafc;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+        .complaint-table td {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
         }
         .status-badge {
-            padding: 0.25rem 0.75rem;
+            padding: 0.4rem 1rem;
             border-radius: var(--radius-full);
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
         }
-        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-submitted { background: #e0f2fe; color: #0369a1; }
+        .badge-review { background: #fef3c7; color: #92400e; }
         .badge-resolved { background: #dcfce7; color: #166534; }
         
-        @media (max-width: 900px) {
+        /* User Profile Mini */
+        .user-profile-mini {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            padding: 0.5rem 1rem 0.5rem 0.5rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+        }
+        .avatar {
+            width: 38px;
+            height: 38px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        @media (max-width: 992px) {
             .dashboard-layout { grid-template-columns: 1fr; }
             aside { display: none; }
+            main { padding: 2rem; }
         }
     </style>
 </head>
-<body style="background: var(--bg-light);">
+<body>
 
     <div class="dashboard-layout">
         <aside>
@@ -102,123 +164,100 @@
             </a>
             
             <nav class="aside-menu">
-                <a href="#" class="menu-item active">
-                    <i data-lucide="home"></i> Dashboard
+                <a href="dashboard.html" class="menu-item active">
+                    <i data-lucide="layout-dashboard"></i> Dashboard
                 </a>
                 <a href="complaint.html" class="menu-item">
-                    <i data-lucide="file-plus"></i> New Complaint
+                    <i data-lucide="file-plus-2"></i> New Complaint
                 </a>
                 <a href="track.html" class="menu-item">
-                    <i data-lucide="activity"></i> Track History
+                    <i data-lucide="list"></i> My Reports
                 </a>
                 <a href="map.html" class="menu-item">
-                    <i data-lucide="map"></i> Police Map
+                    <i data-lucide="map"></i> Safety Map
                 </a>
-                <a href="#" class="menu-item" style="margin-top: auto;">
-                    <i data-lucide="settings"></i> Settings
+                <a href="#" class="menu-item">
+                    <i data-lucide="user"></i> My Profile
                 </a>
-                <a href="#" id="logout-btn" class="menu-item" style="color: #fda4af;">
-                    <i data-lucide="log-out"></i> Logout
-                </a>
+                <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <a href="sos.html" class="btn btn-sos" style="width: 100%; margin-bottom: 1.5rem;">
+                        <i data-lucide="alert-triangle"></i> SOS Emergency
+                    </a>
+                    <a href="#" id="logout-btn" class="menu-item" style="color: #fda4af; opacity: 1;">
+                        <i data-lucide="log-out"></i> Logout
+                    </a>
+                </div>
             </nav>
         </aside>
 
         <main>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <div class="dashboard-header">
                 <div>
-                    <h2 style="font-size: 1.75rem;">Welcome back, Ramesh</h2>
-                    <p style="color: var(--text-muted);">Adhaar Verified Account · TS Citizen ID: 827364</p>
+                    <h2 style="font-size: 2rem; color: var(--primary-blue);">Welcome, <span id="user-name-display">Citizen</span></h2>
+                    <p style="color: var(--text-muted); margin-top: 0.25rem;">Telangana State Digital Safety Portal</p>
                 </div>
-                <div style="display: flex; gap: 1rem; align-items: center;">
-                    <button class="btn btn-outline" style="border: none; position: relative;">
-                        <i data-lucide="bell"></i>
-                        <span style="position: absolute; top: 5px; right: 5px; width: 8px; height: 8px; background: var(--emergency-red); border-radius: 50%;"></span>
-                    </button>
-                    <div style="width: 40px; height: 40px; background: var(--secondary-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">R</div>
+                <div style="display: flex; gap: 1.5rem; align-items: center;">
+                    <div class="user-profile-mini">
+                        <div class="avatar" id="user-avatar-initial">C</div>
+                        <div style="font-weight: 600; font-size: 0.9rem;" id="user-email-display">loading...</div>
+                    </div>
                 </div>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Total Complaints</p>
-                    <h3 style="font-size: 1.5rem;">04</h3>
+                    <div class="stat-icon" style="background: rgba(20, 66, 114, 0.1); color: var(--primary-blue);">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Total Reports</p>
+                        <h3 style="font-size: 1.75rem;" id="stat-total">0</h3>
+                    </div>
                 </div>
-                <div class="stat-card" style="border-left-color: var(--accent-gold);">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Under Review</p>
-                    <h3 style="font-size: 1.5rem;">01</h3>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(234, 179, 8, 0.1); color: #b45309;">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Pending Action</p>
+                        <h3 style="font-size: 1.75rem;" id="stat-pending">0</h3>
+                    </div>
                 </div>
-                <div class="stat-card" style="border-left-color: var(--success-green);">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Resolved</p>
-                    <h3 style="font-size: 1.5rem;">03</h3>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(42, 157, 143, 0.1); color: var(--success-green);">
+                        <i data-lucide="check-circle"></i>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Resolved Cases</p>
+                        <h3 style="font-size: 1.75rem;" id="stat-resolved">0</h3>
+                    </div>
                 </div>
             </div>
 
-            <div class="card" style="padding: 0; border: none; overflow: hidden;">
-                <div style="padding: 1.5rem; background: var(--bg-white); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="font-size: 1.25rem;">Recent Complaints</h3>
-                    <a href="#" style="color: var(--secondary-blue); font-size: 0.9rem; font-weight: 600;">View All</a>
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 style="font-size: 1.25rem; color: var(--primary-blue);">Recent Complaint Activity</h3>
+                    <a href="track.html" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">View All</a>
                 </div>
                 <table class="complaint-table">
                     <thead>
                         <tr>
                             <th>Complaint ID</th>
                             <th>Incident Title</th>
-                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Date Filed</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>TS827364591</td>
-                            <td>Wallet Theft at Gachibowli</td>
-                            <td>Apr 24, 2026</td>
-                            <td><span class="status-badge badge-pending">Under Review</span></td>
-                            <td><a href="track.html?id=TS827364591" style="color: var(--secondary-blue); font-weight: 600;">Track</a></td>
-                        </tr>
-                        <tr>
-                            <td>TS716253490</td>
-                            <td>Cyber Fraud - Bank Call</td>
-                            <td>Mar 15, 2026</td>
-                            <td><span class="status-badge badge-resolved">Resolved</span></td>
-                            <td><a href="#" style="color: var(--secondary-blue); font-weight: 600;">Track</a></td>
-                        </tr>
-                        <tr>
-                            <td>TS665544332</td>
-                            <td>Illegal Parking Block</td>
-                            <td>Feb 02, 2026</td>
-                            <td><span class="status-badge badge-resolved">Resolved</span></td>
-                            <td><a href="#" style="color: var(--secondary-blue); font-weight: 600;">Track</a></td>
-                        </tr>
+                    <tbody id="complaints-list">
+                        <!-- Dynamic content -->
                     </tbody>
                 </table>
-            </div>
-
-            <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div class="card">
-                    <h4>Safety Tips for You</h4>
-                    <ul style="margin-top: 1rem; list-style: none; display: grid; gap: 1rem;">
-                        <li style="display: flex; gap: 1rem;">
-                            <i data-lucide="shield-check" style="color: var(--success-green); width: 20px;"></i>
-                            <p style="font-size: 0.9rem;">Enable 2FA on your banking apps to prevent cyber fraud.</p>
-                        </li>
-                        <li style="display: flex; gap: 1rem;">
-                            <i data-lucide="shield-check" style="color: var(--success-green); width: 20px;"></i>
-                            <p style="font-size: 0.9rem;">Report suspicious activities immediately via SOS button.</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h4>Notifications</h4>
-                    <div style="margin-top: 1rem; display: grid; gap: 1.5rem;">
-                        <div style="display: flex; gap: 1rem;">
-                            <div style="width: 8px; height: 8px; background: var(--secondary-blue); border-radius: 50%; margin-top: 5px;"></div>
-                            <div>
-                                <p style="font-weight: 500; font-size: 0.95rem;">Officer Assigned to Case TS827364591</p>
-                                <p style="font-size: 0.8rem; color: var(--text-muted);">2 hours ago · Gachibowli Station</p>
-                            </div>
-                        </div>
-                    </div>
+                <div id="no-complaints" style="padding: 4rem; text-align: center; display: none;">
+                    <i data-lucide="inbox" style="width: 48px; height: 48px; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--text-muted);">You haven't filed any complaints yet.</p>
+                    <a href="complaint.html" class="btn btn-primary" style="margin-top: 1.5rem;">File Your First Complaint</a>
                 </div>
             </div>
         </main>
@@ -226,40 +265,86 @@
 
     <script type="module">
         import { auth, db } from './js/firebase-config.js';
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { collection, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         lucide.createIcons();
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                document.querySelector('h2').innerText = `Welcome back, ${user.displayName || 'Citizen'}`;
-                document.querySelector('p').innerText = `Email: ${user.email} · TS Citizen ID: Verified`;
+                // Update UI with user info
+                document.getElementById('user-name-display').innerText = user.displayName || 'Citizen';
+                document.getElementById('user-email-display').innerText = user.email;
+                document.getElementById('user-avatar-initial').innerText = (user.displayName || 'C').charAt(0).toUpperCase();
 
                 // Fetch User Complaints
-                const q = query(collection(db, "complaints"), where("uid", "==", user.uid));
-                const querySnapshot = await getDocs(q);
-                const tableBody = document.querySelector('tbody');
-                tableBody.innerHTML = ''; // Clear demo data
+                try {
+                    const q = query(
+                        collection(db, "complaints"), 
+                        where("uid", "==", user.uid),
+                        orderBy("createdAt", "desc")
+                    );
+                    const querySnapshot = await getDocs(q);
+                    const tableBody = document.getElementById('complaints-list');
+                    const noComplaints = document.getElementById('no-complaints');
+                    
+                    let total = 0;
+                    let pending = 0;
+                    let resolved = 0;
 
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const row = `
-                        <tr>
-                            <td>${data.complaintId}</td>
-                            <td>${data.title}</td>
-                            <td>${data.createdAt ? data.createdAt.toDate().toLocaleDateString() : 'Recent'}</td>
-                            <td><span class="status-badge badge-pending">${data.status || 'Submitted'}</span></td>
-                            <td><a href="track.html?id=${data.complaintId}" style="color: var(--secondary-blue); font-weight: 600;">Track</a></td>
-                        </tr>
-                    `;
-                    tableBody.innerHTML += row;
-                });
+                    if (querySnapshot.empty) {
+                        noComplaints.style.display = 'block';
+                        document.querySelector('.complaint-table').style.display = 'none';
+                    } else {
+                        tableBody.innerHTML = '';
+                        querySnapshot.forEach((doc) => {
+                            const data = doc.data();
+                            total++;
+                            if (data.status === 'Resolved') resolved++;
+                            else pending++;
+
+                            // Only show latest 5 in dashboard
+                            if (total <= 5) {
+                                const statusClass = data.status === 'Resolved' ? 'badge-resolved' : (data.status === 'Submitted' ? 'badge-submitted' : 'badge-review');
+                                const row = `
+                                    <tr>
+                                        <td style="font-weight: 600; color: var(--primary-blue); font-family: monospace;">${data.complaintId}</td>
+                                        <td>${data.title}</td>
+                                        <td><span style="font-size: 0.85rem; color: var(--text-muted);">${data.category}</span></td>
+                                        <td>${data.createdAt ? data.createdAt.toDate().toLocaleDateString() : 'Recent'}</td>
+                                        <td><span class="status-badge ${statusClass}">${data.status || 'Submitted'}</span></td>
+                                        <td><a href="track.html?id=${data.complaintId}" style="color: var(--highlight-blue); font-weight: 700; display: flex; align-items: center; gap: 0.25rem;">Track <i data-lucide="arrow-right" style="width: 14px;"></i></a></td>
+                                    </tr>
+                                `;
+                                tableBody.innerHTML += row;
+                            }
+                        });
+                        lucide.createIcons();
+                    }
+
+                    // Update Stats
+                    document.getElementById('stat-total').innerText = total.toString().padStart(2, '0');
+                    document.getElementById('stat-pending').innerText = pending.toString().padStart(2, '0');
+                    document.getElementById('stat-resolved').innerText = resolved.toString().padStart(2, '0');
+
+                } catch (err) {
+                    console.error("Error fetching dashboard data:", err);
+                }
             } else {
-                window.location.href = 'auth.html'; // Force login
+                window.location.href = 'auth.html';
+            }
+        });
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                await signOut(auth);
+                window.location.href = 'index.html';
+            } catch (err) {
+                alert("Logout failed: " + err.message);
             }
         });
     </script>
-    <script type="module" src="js/global-auth.js"></script>
 </body>
 </html>
